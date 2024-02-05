@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
 
     if (req.body.contacts) {
       for (let index = 0; index < req.body.contacts.length; index++) {
-        const contact = req.body.contacts[index];
+        const contact = req.body.contacts[index]
         if (!contact.type || !contact.contact) {
           return res.status(400).json({ message: 'Invalid request' })
         }

@@ -32,30 +32,30 @@ describe('Timeline route tests', () => {
 
   describe('Timeline route', () => {
     it('DELETE /timeline => Try good id', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        const body = {
-            date: new Date(),
-            description: 'testDesc',
-            newFeatures: ["feat1", "feat2"]
-        }
-        await funcs.post('/timeline', body, 200, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        date: new Date(),
+        description: 'testDesc',
+        newFeatures: ['feat1', 'feat2']
+      }
+      await funcs.post('/timeline', body, 200, /json/)
 
-        const timeline = await Timeline.findOne({})
+      const timeline = await Timeline.findOne({})
 
-        await funcs.delete('/timeline/' + timeline._id, 200, /json/)
+      await funcs.delete('/timeline/' + timeline._id, 200, /json/)
     })
 
     it('DELETE /timeline => Try bad id', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        await funcs.delete('/timeline/' + "6082f660865c902ecdb8b801", 400, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.delete('/timeline/' + '6082f660865c902ecdb8b801', 400, /json/)
     })
 
     it('DELETE /timeline => Try bad objectid', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        await funcs.delete('/timeline/' + "a", 400, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.delete('/timeline/' + 'a', 400, /json/)
     })
   })
 })
