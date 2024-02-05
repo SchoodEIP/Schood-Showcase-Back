@@ -1,0 +1,84 @@
+name: Linter
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  StandardJS:
+    if: ${{ github.triggering_actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install standard
+        working-directory: ./src
+        run: npm install -g standard
+
+      - name: Standard Fix
+        working-directory: ./src
+        continue-on-error: true
+        run: standard --fix --global it --global expect --global describe --global beforeAll --global afterEach --global beforeEach --global afterAll
+
+      - name: Get Non fixable auto
+        working-directory: ./src
+        continue-on-error: true
+        run: standard --global it --global expect --global describe --global beforeAll --global afterEach --global beforeEach --global afterAll > linter-nonfixable
+
+      - name: Delete empty file linter-nonfixable
+        working-directory: ./src
+        run: |
+          find linter-nonfixable -size 0 -delete
+
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "./src/linter-nonfixable"
+
+      - name: Add comment start file
+        if: steps.check_files.outputs.files_exists == 'true'
+        working-directory: ./src
+        run: |
+          sed -i '1s/^/Non fixable linter problems:\n\n/' linter-nonfixable
+
+      - name: Comment non fixable
+        if: |
+          steps.check_files.outputs.files_exists == 'true' &&
+          github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          filePath: ./src/linter-nonfixable
+          comment_tag: linternonfixable
+
+      - name: Comment empty
+        if: |
+          steps.check_files.outputs.files_exists == 'false' &&
+          github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: "All linter problems fixed"
+          comment_tag: linternonfixable
+          create_if_not_exists: false
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: |
+          github.event_name == 'pull_request'
+        with:
+          commit_message: "[LINT] Applied linter fix"
+
+      - name: Set error if file
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: exit 1
