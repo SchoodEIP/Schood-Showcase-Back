@@ -26,14 +26,14 @@ module.exports = async (req, res) => {
     if (error) {
       return res.status(400).json({ message: 'Invalid request' })
     }
-    
+
     const timeline = new Timeline({
-        date: req.body.date,
-        description: req.body.description,
-        newFeatures: req.body.newFeatures
+      date: req.body.date,
+      description: req.body.description,
+      newFeatures: req.body.newFeatures
     })
 
-    await timeline.save();
+    await timeline.save()
 
     // Send timeline
     return res.status(200).json(timeline)

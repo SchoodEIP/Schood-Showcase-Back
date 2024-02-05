@@ -31,24 +31,24 @@ describe('Timeline route tests', () => {
 
   describe('Timeline route', () => {
     it('POST /timeline => Try good body', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        const body = {
-            date: new Date(),
-            description: 'testDesc',
-            newFeatures: ["feat1", "feat2"]
-        }
-        await funcs.post('/timeline', body, 200, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        date: new Date(),
+        description: 'testDesc',
+        newFeatures: ['feat1', 'feat2']
+      }
+      await funcs.post('/timeline', body, 200, /json/)
     })
 
     it('POST /timeline => Try bad body', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        const body = {
-            date: new Date(),
-            description: 'testDesc',
-        }
-        await funcs.post('/timeline', body, 400, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        date: new Date(),
+        description: 'testDesc'
+      }
+      await funcs.post('/timeline', body, 400, /json/)
     })
   })
 })

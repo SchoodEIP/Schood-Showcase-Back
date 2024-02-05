@@ -46,20 +46,20 @@ const validateRegister = (data) => {
     lastname: Joi.string().required(),
     picture: Joi.string().required(),
     role: Joi.string().required(),
-    description: Joi.string().required(),
+    description: Joi.string().required()
   })
   return schema.validate(data)
 }
 
 const validatePatch = (data) => {
-    const schema = Joi.object({
-        firstname: Joi.string(),
-        lastname: Joi.string(),
-        picture: Joi.string(),
-        role: Joi.string(),
-        description: Joi.string(),
-    })
-    return schema.validate(data)
+  const schema = Joi.object({
+    firstname: Joi.string(),
+    lastname: Joi.string(),
+    picture: Joi.string(),
+    role: Joi.string(),
+    description: Joi.string()
+  })
+  return schema.validate(data)
 }
 
 module.exports = { Team, validateRegister, validatePatch }

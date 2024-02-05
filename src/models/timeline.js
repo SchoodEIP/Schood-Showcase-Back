@@ -26,7 +26,7 @@ const timelineSchema = new Schema({
   newFeatures: [{
     type: String,
     required: true
-  }],
+  }]
 })
 
 // We create timeline collection from timelineSchema
@@ -38,7 +38,7 @@ const validateRegister = (data) => {
   const schema = Joi.object({
     date: Joi.string().required(),
     description: Joi.string().required(),
-    newFeatures: Joi.array().required(),
+    newFeatures: Joi.array().required()
   })
   return schema.validate(data)
 }
@@ -47,7 +47,7 @@ const validatePatch = (data) => {
   const schema = Joi.object({
     date: Joi.string(),
     description: Joi.string(),
-    newFeatures: Joi.array(),
+    newFeatures: Joi.array()
   })
   return schema.validate(data)
 }

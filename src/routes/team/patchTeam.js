@@ -30,12 +30,12 @@ module.exports = async (req, res) => {
     }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
-    
+
     const team = await Team.findById(id)
     if (!team) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
 
     team.firstname = req.body.firstname ? req.body.firstname : team.firstname
@@ -44,7 +44,7 @@ module.exports = async (req, res) => {
     team.role = req.body.role ? req.body.role : team.role
     team.description = req.body.description ? req.body.description : team.description
 
-    await team.save();
+    await team.save()
 
     // Send team
     return res.status(200).json(team)

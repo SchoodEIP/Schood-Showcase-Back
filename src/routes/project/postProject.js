@@ -35,14 +35,14 @@ module.exports = async (req, res) => {
         }
       }
     }
-    
+
     const project = new Project({
       name: req.body.name,
       description: req.body.description,
       contacts: req.body.contacts
     })
 
-    await project.save();
+    await project.save()
 
     // Send project
     return res.status(200).json(project)
