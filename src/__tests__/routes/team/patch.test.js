@@ -34,18 +34,18 @@ describe('Team route tests', () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
       const body = {
-        firstname: "Test",
-        lastname: "Test",
-        picture: "Test",
-        role: "Test",
-        description: "Test",
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test',
+        description: 'Test'
       }
       const body2 = {
-        firstname: "Test",
-        lastname: "Test",
-        picture: "Test",
-        role: "Test",
-        description: "Test",
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test',
+        description: 'Test'
       }
       await funcs.post('/team', body, 200, /json/)
 
@@ -57,11 +57,11 @@ describe('Team route tests', () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
       const body = {
-        firstname: "Test",
-        lastname: "Test",
-        picture: "Test",
-        role: "Test",
-        description: "Test",
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test',
+        description: 'Test'
       }
       const body2 = {}
       await funcs.post('/team', body, 200, /json/)
@@ -74,18 +74,18 @@ describe('Team route tests', () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
       const body = {
-        firstname: "Test",
-        lastname: "Test",
-        picture: "Test",
-        role: "Test",
-        description: "Test",
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test',
+        description: 'Test'
       }
       const body2 = {
-        firstname: "Test",
-        lastname: "Test",
-        picture: "Test",
-        role: "Test",
-        test: "Test"
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test',
+        test: 'Test'
       }
       await funcs.post('/team', body, 200, /json/)
 
@@ -94,15 +94,15 @@ describe('Team route tests', () => {
     })
 
     it('POST /team => Try bad objectId', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        await funcs.patch('/team/' + "a", {}, 400, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.patch('/team/' + 'a', {}, 400, /json/)
     })
 
     it('POST /team => Try bad id', async () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
-      await funcs.patch('/team/' + "6082f660865c902ecdb8b801", {}, 400, /json/)
+      await funcs.patch('/team/' + '6082f660865c902ecdb8b801', {}, 400, /json/)
     })
   })
 })

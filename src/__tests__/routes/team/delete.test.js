@@ -34,11 +34,11 @@ describe('Team route tests', () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
       const body = {
-        firstname: "Test",
-        lastname: "Test",
-        picture: "Test",
-        role: "Test",
-        description: "Test",
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test',
+        description: 'Test'
       }
       await funcs.post('/team', body, 200, /json/)
 
@@ -48,15 +48,15 @@ describe('Team route tests', () => {
     })
 
     it('DELETE /team => Try bad id', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        await funcs.delete('/team/' + "6082f660865c902ecdb8b801", 400, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.delete('/team/' + '6082f660865c902ecdb8b801', 400, /json/)
     })
 
     it('DELETE /team => Try bad objectid', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        await funcs.delete('/team/' + "a", 400, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.delete('/team/' + 'a', 400, /json/)
     })
   })
 })

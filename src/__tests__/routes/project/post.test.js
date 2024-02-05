@@ -47,8 +47,8 @@ describe('Project route tests', () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
       const body = {
-          name: "Test",
-          description: "Test",
+        name: 'Test',
+        description: 'Test'
       }
       await funcs.post('/project', body, 200, /json/)
     })
@@ -66,11 +66,11 @@ describe('Project route tests', () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
       const body = {
-        name: "Test",
-          description: "Test",
-          contacts: [{
-            type: "test",
-          }],
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test'
+        }]
       }
       await funcs.post('/project', body, 400, /json/)
     })
