@@ -1,0 +1,70 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "Showcase website backend for the Schood project",
+  "main": "index.js",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "__tests__/serverUtils"
+    ],
+    "coveragePathIgnorePatterns": [
+      "__tests__/serverUtils",
+      "config/db.default",
+      "services/logger"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/(?!my-package)(.*)"
+    ],
+    "testEnvironment": "node",
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    }
+  },
+  "scripts": {
+    "start": "nodemon --ignore node_modules",
+    "coverage": "jest --runInBand --testTimeout=15000 --coverage",
+    "test": "jest --runInBand --testTimeout=15000",
+    "linter": "standard --fix --global it --global expect --global describe --global beforeAll --global afterEach --global beforeEach --global afterAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SchoodEIP/Schood-Showcase-Back.git"
+  },
+  "author": "Exiels",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SchoodEIP/Schood-Showcase-Back/issues"
+  },
+  "homepage": "https://github.com/SchoodEIP/Schood-Showcase-Back#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "jest": "^29.7.0",
+    "joi": "^17.12.1",
+    "joi-objectid": "^4.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongo-sanitize": "^1.1.0",
+    "mongoose": "^8.1.1",
+    "nodemon": "^3.0.3",
+    "standard": "^17.1.0",
+    "supertest": "^6.3.4",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0"
+  },
+  "nodemonConfig": {
+    "legacyWatch": true
+  },
+  "paths": {
+    "@/*": [
+      "src/*"
+    ]
+  }
+}
