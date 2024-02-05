@@ -5,6 +5,7 @@
  */
 
 const Logger = require('../../services/logger')
+const { default: mongoose } = require('mongoose')
 const { Timeline, validatePatch } = require('../../models/timeline')
 
 /**

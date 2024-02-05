@@ -44,6 +44,16 @@ describe('Project route tests', () => {
       await funcs.post('/project', body, 200, /json/)
     })
 
+    it('POST /project => Try good body no contacts', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+          name: "Test",
+          description: "Test",
+      }
+      await funcs.post('/project', body, 200, /json/)
+    })
+
     it('POST /project => Try bad body', async () => {
         const token = await funcs.login('admin@schood.fr', 'admin123')
         funcs.setToken(token)
@@ -51,6 +61,19 @@ describe('Project route tests', () => {
           name: "Test",
         }
         await funcs.post('/project', body, 400, /json/)
+    })
+
+    it('POST /project => Try bad body2', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        name: "Test",
+          description: "Test",
+          contacts: [{
+            type: "test",
+          }],
+      }
+      await funcs.post('/project', body, 400, /json/)
     })
   })
 })

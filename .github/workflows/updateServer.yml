@@ -12,5 +12,5 @@ jobs:
             - name: Update Develop
               uses: fjogeleit/http-request-action@v1
               with:
-                url: 'http://20.111.49.79:8083/backend'
+                url: 'http://20.111.49.79:8083/backend-showcase'
                 method: 'GET'

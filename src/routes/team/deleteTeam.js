@@ -6,6 +6,7 @@
 
 const Logger = require('../../services/logger')
 const { Team } = require('../../models/team')
+const { default: mongoose } = require('mongoose')
 
 /**
  * Main deleteTeam function

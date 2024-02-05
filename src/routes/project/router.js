@@ -18,7 +18,7 @@ const auth = require('../../middleware/auth')
 
 router.get('/', getProject)
 router.post('/', auth, postProject)
-router.patch('/', auth, patchProject)
-router.delete('/', auth, deleteProject)
+router.patch('/:id', auth, patchProject)
+router.delete('/:id', auth, deleteProject)
 
 module.exports = router

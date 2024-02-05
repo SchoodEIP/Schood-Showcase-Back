@@ -6,6 +6,7 @@
 
 const Logger = require('../../services/logger')
 const { Timeline } = require('../../models/timeline')
+const { default: mongoose } = require('mongoose')
 
 /**
  * Main deleteTimeline function

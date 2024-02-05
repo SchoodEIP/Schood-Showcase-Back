@@ -5,6 +5,7 @@
  */
 
 const Logger = require('../../services/logger')
+const { default: mongoose } = require('mongoose')
 const { Team, validatePatch } = require('../../models/team')
 
 /**

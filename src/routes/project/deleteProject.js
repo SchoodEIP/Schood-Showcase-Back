@@ -6,6 +6,7 @@
 
 const Logger = require('../../services/logger')
 const { Project } = require('../../models/project')
+const { default: mongoose } = require('mongoose')
 
 /**
  * Main getProject function
