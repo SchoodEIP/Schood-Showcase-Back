@@ -77,7 +77,7 @@ describe('User route tests', () => {
         })
         .send({
           date: new Date(),
-          description: 'test',
+          description: 'test'
         })
         .expect('Content-Type', /json/)
         .expect(400)
@@ -88,7 +88,7 @@ describe('User route tests', () => {
         .post('/timeline')
         .send({
           date: new Date(),
-          description: 'test',
+          description: 'test'
         })
         .expect('Content-Type', /json/)
         .expect(403)
@@ -118,7 +118,7 @@ describe('User route tests', () => {
         })
         .send({
           date: new Date(),
-          description: 'test',
+          description: 'test'
         })
         .expect('Content-Type', /json/)
         .expect(400)

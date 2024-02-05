@@ -5,6 +5,7 @@
  */
 
 const Logger = require('../../services/logger')
+const { default: mongoose } = require('mongoose')
 const { Project, validatePatch } = require('../../models/project')
 
 /**
@@ -29,27 +30,28 @@ module.exports = async (req, res) => {
     }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
-    
+
     const project = await Project.findById(id)
     if (!project) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
 
     if (req.body.contacts) {
-      req.body.contacts.forEach(contact => {
+      for (let index = 0; index < req.body.contacts.length; index++) {
+        const contact = req.body.contacts[index]
         if (!contact.type || !contact.contact) {
           return res.status(400).json({ message: 'Invalid request' })
         }
-      });
+      }
     }
 
-    project.name = req.body.name ? req.body.name : timeline.name
-    project.description = req.body.description ? req.body.description : timeline.description
-    project.contacts = req.body.contacts ? req.body.contacts : timeline.contacts
+    project.name = req.body.name ? req.body.name : project.name
+    project.description = req.body.description ? req.body.description : project.description
+    project.contacts = req.body.contacts ? req.body.contacts : project.contacts
 
-    await project.save();
+    await project.save()
 
     // Send project
     return res.status(200).json(project)

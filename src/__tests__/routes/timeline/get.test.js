@@ -3,16 +3,13 @@ const mongoose = require('mongoose')
 
 const server = require('../../serverUtils/testServer')
 const dbDefault = require('../../../config/db.default')
-const TestFunctions = require('../../serverUtils/TestFunctions')
 
 describe('Timeline route tests', () => {
   let app
-  let funcs
 
   beforeAll(async () => {
     process.env.PROD = false
     app = await server.testServer()
-    funcs = new TestFunctions(app)
   })
 
   afterEach(async () => {

@@ -1,9 +1,9 @@
-const request = require('supertest')
 const mongoose = require('mongoose')
 
 const server = require('../../serverUtils/testServer')
 const dbDefault = require('../../../config/db.default')
 const TestFunctions = require('../../serverUtils/TestFunctions')
+const { Team } = require('../../../models/team')
 
 describe('Team route tests', () => {
   let app
@@ -30,11 +30,33 @@ describe('Team route tests', () => {
   })
 
   describe('Team route', () => {
-    it('GET /team => Try good get', async () => {
-      return await request(app)
-        .get('/team')
-        .expect('Content-Type', /json/)
-        .expect(200)
+    it('DELETE /team => Try good id', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test',
+        description: 'Test'
+      }
+      await funcs.post('/team', body, 200, /json/)
+
+      const team = await Team.findOne({})
+
+      await funcs.delete('/team/' + team._id, 200, /json/)
+    })
+
+    it('DELETE /team => Try bad id', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.delete('/team/' + '6082f660865c902ecdb8b801', 400, /json/)
+    })
+
+    it('DELETE /team => Try bad objectid', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.delete('/team/' + 'a', 400, /json/)
     })
   })
 })

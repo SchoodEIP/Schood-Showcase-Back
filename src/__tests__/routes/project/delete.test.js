@@ -1,9 +1,9 @@
-const request = require('supertest')
 const mongoose = require('mongoose')
 
 const server = require('../../serverUtils/testServer')
 const dbDefault = require('../../../config/db.default')
 const TestFunctions = require('../../serverUtils/TestFunctions')
+const { Project } = require('../../../models/project')
 
 describe('Project route tests', () => {
   let app
@@ -30,11 +30,34 @@ describe('Project route tests', () => {
   })
 
   describe('Project route', () => {
-    it('GET /project => Try good get', async () => {
-      return await request(app)
-        .get('/project')
-        .expect('Content-Type', /json/)
-        .expect(200)
+    it('DELETE /project => Try good id', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test',
+          contact: 'test'
+        }]
+      }
+      await funcs.post('/project', body, 200, /json/)
+
+      const project = await Project.findOne({})
+
+      await funcs.delete('/project/' + project._id, 200, /json/)
+    })
+
+    it('DELETE /project => Try bad id', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.delete('/project/' + '6082f660865c902ecdb8b801', 400, /json/)
+    })
+
+    it('DELETE /project => Try bad objectid', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.delete('/project/' + 'a', 400, /json/)
     })
   })
 })

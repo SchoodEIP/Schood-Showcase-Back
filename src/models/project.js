@@ -23,12 +23,12 @@ const projectSchema = new Schema({
   },
   contacts: [{
     type: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     contact: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     }
   }]
 })
@@ -42,18 +42,18 @@ const validateRegister = (data) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
-    contacts: Joi.array(),
+    contacts: Joi.array()
   })
   return schema.validate(data)
 }
 
 const validatePatch = (data) => {
-    const schema = Joi.object({
-        name: Joi.string(),
-        description: Joi.string(),
-        contacts: Joi.array(),
-    })
-    return schema.validate(data)
+  const schema = Joi.object({
+    name: Joi.string(),
+    description: Joi.string(),
+    contacts: Joi.array()
+  })
+  return schema.validate(data)
 }
 
 module.exports = { Project, validateRegister, validatePatch }

@@ -26,16 +26,16 @@ module.exports = async (req, res) => {
     if (error) {
       return res.status(400).json({ message: 'Invalid request' })
     }
-    
+
     const team = new Team({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        picture: req.body.picture,
-        role: req.body.role,
-        description: req.body.description,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      picture: req.body.picture,
+      role: req.body.role,
+      description: req.body.description
     })
 
-    await team.save();
+    await team.save()
 
     // Send team
     return res.status(200).json(team)

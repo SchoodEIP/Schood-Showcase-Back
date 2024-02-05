@@ -1,9 +1,9 @@
-const request = require('supertest')
 const mongoose = require('mongoose')
 
 const server = require('../../serverUtils/testServer')
 const dbDefault = require('../../../config/db.default')
 const TestFunctions = require('../../serverUtils/TestFunctions')
+const { Project } = require('../../../models/project')
 
 describe('Project route tests', () => {
   let app
@@ -30,11 +30,109 @@ describe('Project route tests', () => {
   })
 
   describe('Project route', () => {
-    it('GET /project => Try good get', async () => {
-      return await request(app)
-        .get('/project')
-        .expect('Content-Type', /json/)
-        .expect(200)
+    it('PATCH /project => Try good body', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test',
+          contact: 'test'
+        }]
+      }
+      const body2 = {
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test',
+          contact: 'test'
+        }]
+      }
+      await funcs.post('/project', body, 200, /json/)
+
+      const project = await Project.findOne({})
+      await funcs.patch('/project/' + project._id, body2, 200, /json/)
+    })
+
+    it('PATCH /project => Try good body2', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test',
+          contact: 'test'
+        }]
+      }
+      const body2 = {}
+      await funcs.post('/project', body, 200, /json/)
+
+      const project = await Project.findOne({})
+      await funcs.patch('/project/' + project._id, body2, 200, /json/)
+    })
+
+    it('POST /project => Try bad body', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test',
+          contact: 'test'
+        }]
+      }
+      const body2 = {
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test',
+          contact: 'test'
+        }],
+        test: 'Test'
+      }
+      await funcs.post('/project', body, 200, /json/)
+
+      const project = await Project.findOne({})
+      await funcs.patch('/project/' + project._id, body2, 400, /json/)
+    })
+
+    it('POST /project => Try bad body2', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test',
+          contact: 'test'
+        }]
+      }
+      const body2 = {
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test'
+        }]
+      }
+      await funcs.post('/project', body, 200, /json/)
+
+      const project = await Project.findOne({})
+      await funcs.patch('/project/' + project._id, body2, 400, /json/)
+    })
+
+    it('POST /project => Try bad objectId', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.patch('/project/' + 'a', {}, 400, /json/)
+    })
+
+    it('POST /project => Try bad id', async () => {
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      await funcs.patch('/project/' + '6082f660865c902ecdb8b801', {}, 400, /json/)
     })
   })
 })

@@ -126,4 +126,86 @@ module.exports = class TestFunctions {
     }
     return res
   }
+
+  /**
+   * Function to execute PATCH method
+   * @param {String} route The route for API call
+   * @param {Object} body The body of the API call, default {}
+   * @param {Number} expectedCode The expected return code of API call, default 200
+   * @param {RegExp} contentType The expected type of content returned by the API call. If null, not checked, default null
+   * @param {String} token The token applied to the API call. If not defined, this.token will be applied, default null
+   * @param {Function} toExecute Function to execute after API call ended. Takes all the response as parameter, default null
+   * @returns {JSON} The body of the response of the API call
+   */
+  async patch (route, body = {}, expectedCode = 200, contentType = null, token = null, toExecute = null) {
+    let res
+
+    if (contentType) {
+      await request(this.app)
+        .patch(route)
+        .set({
+          'x-auth-token': token || this.token
+        })
+        .send(body)
+        .expect('Content-Type', contentType)
+        .expect(expectedCode)
+        .then((response) => {
+          res = response.body
+          if (toExecute) toExecute(response)
+        })
+    } else {
+      await request(this.app)
+        .patch(route)
+        .set({
+          'x-auth-token': token || this.token
+        })
+        .send(body)
+        .expect(expectedCode)
+        .then((response) => {
+          res = response.body
+          if (toExecute) toExecute(response)
+        })
+    }
+    return res
+  }
+
+  /**
+   * Function to execute DELETE method
+   * @param {String} route The route for API call
+   * @param {Object} body The body of the API call, default {}
+   * @param {Number} expectedCode The expected return code of API call, default 200
+   * @param {RegExp} contentType The expected type of content returned by the API call. If null, not checked, default null
+   * @param {String} token The token applied to the API call. If not defined, this.token will be applied, default null
+   * @param {Function} toExecute Function to execute after API call ended. Takes all the response as parameter, default null
+   * @returns {JSON} The body of the response of the API call
+   */
+  async delete (route, expectedCode = 200, contentType = null, token = null, toExecute = null) {
+    let res
+
+    if (contentType) {
+      await request(this.app)
+        .delete(route)
+        .set({
+          'x-auth-token': token || this.token
+        })
+        .expect('Content-Type', contentType)
+        .expect(expectedCode)
+        .then((response) => {
+          res = response.body
+          if (toExecute) toExecute(response)
+        })
+    } else {
+      await request(this.app)
+        .delete(route)
+        .set({
+          'x-auth-token': token || this.token
+        })
+        .expect(expectedCode)
+        .then((response) => {
+          res = response.body
+          if (toExecute) toExecute(response)
+        })
+    }
+    return res
+  }
 }

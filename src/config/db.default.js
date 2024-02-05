@@ -13,7 +13,7 @@ async function initDefaultUsers () {
       // We create a default admin user
       const adminU = new Users({
         email: 'admin@schood.fr',
-        password: hash,
+        password: hash
       })
 
       // Save the user admin

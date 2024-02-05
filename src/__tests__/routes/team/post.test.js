@@ -1,4 +1,3 @@
-const request = require('supertest')
 const mongoose = require('mongoose')
 
 const server = require('../../serverUtils/testServer')
@@ -34,25 +33,25 @@ describe('Team route tests', () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
       const body = {
-          firstname: "Test",
-          lastname: "Test",
-          picture: "Test",
-          role: "Test",
-          description: "Test",
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test',
+        description: 'Test'
       }
       await funcs.post('/team', body, 200, /json/)
     })
 
     it('POST /team => Try bad body', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        const body = {
-          firstname: "Test",
-          lastname: "Test",
-          picture: "Test",
-          role: "Test",
-        }
-        await funcs.post('/team', body, 400, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        firstname: 'Test',
+        lastname: 'Test',
+        picture: 'Test',
+        role: 'Test'
+      }
+      await funcs.post('/team', body, 400, /json/)
     })
   })
 })
