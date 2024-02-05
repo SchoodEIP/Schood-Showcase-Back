@@ -22,7 +22,7 @@ const usersSchema = new Schema({
   password: {
     type: String,
     required: true
-  },
+  }
 })
 
 // We generate an auth token for user

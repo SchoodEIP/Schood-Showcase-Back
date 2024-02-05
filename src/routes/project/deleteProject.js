@@ -24,11 +24,11 @@ module.exports = async (req, res) => {
     // Verif received data
     const id = req.params.id
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
 
     if (!await Project.findByIdAndDelete(id)) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
 
     return res.status(200).json()

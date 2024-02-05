@@ -29,12 +29,12 @@ module.exports = async (req, res) => {
     }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
-    
+
     const project = await Project.findById(id)
     if (!project) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
 
     if (req.body.contacts) {
@@ -42,14 +42,14 @@ module.exports = async (req, res) => {
         if (!contact.type || !contact.contact) {
           return res.status(400).json({ message: 'Invalid request' })
         }
-      });
+      })
     }
 
     project.name = req.body.name ? req.body.name : timeline.name
     project.description = req.body.description ? req.body.description : timeline.description
     project.contacts = req.body.contacts ? req.body.contacts : timeline.contacts
 
-    await project.save();
+    await project.save()
 
     // Send project
     return res.status(200).json(project)

@@ -29,19 +29,19 @@ module.exports = async (req, res) => {
     }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
-    
+
     const timeline = await Timeline.findById(id)
     if (!timeline) {
-        return res.status(400).json({ message: 'Invalid request' })
+      return res.status(400).json({ message: 'Invalid request' })
     }
 
     timeline.date = req.body.date ? req.body.date : timeline.date
     timeline.description = req.body.description ? req.body.description : timeline.description
     timeline.newFeatures = req.body.newFeatures ? req.body.newFeatures : timeline.newFeatures
 
-    await timeline.save();
+    await timeline.save()
 
     // Send timeline
     return res.status(200).json(timeline)

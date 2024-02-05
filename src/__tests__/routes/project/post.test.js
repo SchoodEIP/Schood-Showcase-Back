@@ -34,23 +34,23 @@ describe('Project route tests', () => {
       const token = await funcs.login('admin@schood.fr', 'admin123')
       funcs.setToken(token)
       const body = {
-          name: "Test",
-          description: "Test",
-          contacts: [{
-            type: "test",
-            contact: "test"
-          }],
+        name: 'Test',
+        description: 'Test',
+        contacts: [{
+          type: 'test',
+          contact: 'test'
+        }]
       }
       await funcs.post('/project', body, 200, /json/)
     })
 
     it('POST /project => Try bad body', async () => {
-        const token = await funcs.login('admin@schood.fr', 'admin123')
-        funcs.setToken(token)
-        const body = {
-          name: "Test",
-        }
-        await funcs.post('/project', body, 400, /json/)
+      const token = await funcs.login('admin@schood.fr', 'admin123')
+      funcs.setToken(token)
+      const body = {
+        name: 'Test'
+      }
+      await funcs.post('/project', body, 400, /json/)
     })
   })
 })
