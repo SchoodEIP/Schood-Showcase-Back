@@ -38,7 +38,9 @@ module.exports = async (req, res) => {
       return res.status(400).json({ message: 'Invalid request' })
     }
 
-    timeline.date = req.body.date ? req.body.date : timeline.date
+    timeline.title = req.body.title ? req.body.title : timeline.title
+    timeline.fromDate = req.body.fromDate ? req.body.fromDate : timeline.fromDate
+    timeline.toDate = req.body.toDate ? req.body.toDate : timeline.toDate
     timeline.description = req.body.description ? req.body.description : timeline.description
     timeline.newFeatures = req.body.newFeatures ? req.body.newFeatures : timeline.newFeatures
 

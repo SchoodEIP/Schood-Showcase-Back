@@ -28,7 +28,9 @@ module.exports = async (req, res) => {
     }
 
     const timeline = new Timeline({
-      date: req.body.date,
+      title: req.body.title,
+      fromDate: req.body.fromDate,
+      toDate: req.body.toDate,
       description: req.body.description,
       newFeatures: req.body.newFeatures
     })
