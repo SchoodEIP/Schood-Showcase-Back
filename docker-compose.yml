@@ -1,27 +1,11 @@
 version: '3.8'
 services:
-  mongodb:
-    image: 'mongo'
-    restart: always
-    command: mongod --port ${DB_PORT}
-    ports:
-      - '${DB_PORT}:${DB_PORT}'
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASS}
-    volumes:
-      - db:/var/lib/mongodb
-
   api:
     build: src
     restart: always
     ports:
       - '${HTTP_EXPRESS_PORT}:${HTTP_EXPRESS_PORT}'
       - '${HTTPS_EXPRESS_PORT}:${HTTPS_EXPRESS_PORT}'
-    depends_on:
-      - mongodb
-    links:
-      - mongodb
     environment:
       - DB_HOST=mongodb
       - DB_PORT=${DB_PORT}
