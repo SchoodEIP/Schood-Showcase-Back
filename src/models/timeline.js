@@ -13,10 +13,18 @@ const Joi = require('joi')
  * @constructor Timeline
  */
 const timelineSchema = new Schema({
-  date: {
+  title: {
+    type: String,
+    required: true
+  },
+  fromDate: {
     type: Date,
     required: true,
-    unique: true,
+    default: new Date()
+  },
+  toDate: {
+    type: Date,
+    required: true,
     default: new Date()
   },
   description: {
@@ -36,7 +44,9 @@ const Timeline = mongoose.model('timeline', timelineSchema)
 
 const validateRegister = (data) => {
   const schema = Joi.object({
-    date: Joi.string().required(),
+    title: Joi.string().required(),
+    fromDate: Joi.string().required(),
+    toDate: Joi.string().required(),
     description: Joi.string().required(),
     newFeatures: Joi.array().required()
   })
@@ -45,7 +55,9 @@ const validateRegister = (data) => {
 
 const validatePatch = (data) => {
   const schema = Joi.object({
-    date: Joi.string(),
+    title: Joi.string(),
+    fromDate: Joi.string(),
+    toDate: Joi.string(),
     description: Joi.string(),
     newFeatures: Joi.array()
   })
