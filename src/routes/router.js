@@ -9,6 +9,7 @@ const userRouter = require('./user/router')
 const timelineRouter = require('./timeline/router')
 const teamRouter = require('./team/router')
 const projectRouter = require('./project/router')
+const postsRouter = require('./posts/router')
 const downloadAPK = require('./downloadAPK')
 
 /**
@@ -20,6 +21,7 @@ router.use('/user', userRouter)
 router.use('/timeline', timelineRouter)
 router.use('/team', teamRouter)
 router.use('/project', projectRouter)
+router.use('/posts', postsRouter)
 router.get('/downloadapk', downloadAPK)
 
 module.exports = router
