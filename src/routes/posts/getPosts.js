@@ -21,7 +21,7 @@ const { Posts } = require('../../models/posts')
  */
 module.exports = async (req, res) => {
   try {
-    const posts = await Posts.find({})
+    const posts = await Posts.find({}).sort({date: -1})
 
     // Send posts
     return res.status(200).json(posts)
